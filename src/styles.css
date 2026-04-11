@@ -1,0 +1,123 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600&display=swap");
+/* Fonts */
+
+:root {
+  --color-default: #0a0d13;
+  --color-primary: #d63384;
+  --color-secondary: #0d42ff;
+  scroll-behavior: smooth;
+  --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-primary: "Mulish", sans-serif;
+  --font-secondary: "Poppins", sans-serif;
+  /* Màu nền chính */
+  --bg: #e8e8e8; /* nền xám nhạt như trong ảnh */
+  --bg-secondary: #f5f5f5; /* nền phụ trắng xám */
+  --white: #ffffff; /* trắng tinh khiết */
+
+  /* Màu panel và card */
+  --panel: #ffffff; /* panel trắng cho các card */
+  --panel-shadow: rgba(0, 0, 0, 0.1); /* bóng đổ nhẹ */
+
+  /* Màu viền và đường kẻ */
+  --line: #d0d0d0; /* viền xám nhạt */
+  --border-light: #e0e0e0; /* viền rất nhạt */
+
+  /* Màu chữ */
+  --text-primary: #2c2c2c; /* chữ đen chính */
+  --text-secondary: #4a4a4a; /* chữ xám đậm */
+  --text-muted: #777777; /* chữ xám nhạt */
+  --text-light: #999999; /* chữ rất nhạt */
+
+  /* Màu thương hiệu */
+  --brand-primary: #333333; /* đen chủ đạo */
+  --brand-secondary: #666666; /* xám trung tính */
+  --accent: #4a90e2; /* xanh nhấn cho link */
+  --accent-hover: #357abd; /* xanh đậm khi hover */
+
+  /* Màu gradient và overlay */
+  --overlay: rgba(255, 255, 255, 0.9); /* overlay trắng trong suốt */
+  --gradient-light: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+
+  /* Sizing và spacing */
+  --container-max-width: 1200px;
+  --header-height: 80px;
+  --section-padding: 60px;
+  --card-radius: 8px;
+  --transition: all 0.3s ease;
+
+  --background-hover: #dedede;
+
+  --bg: #faf9f6; /* nền off-white */
+  --panel: #ebebeb; /* xám nhạt cho dải nền */
+  --line: #d9d9d9; /* đường kẻ */
+  --text: #4b4b4b; /* chữ xám đậm */
+  --muted: #6f6f6f; /* chữ nhạt */
+  --nav-grad1: #f7f7f7; /* gradient nav */
+  --nav-grad2: #ececec;
+  --white: #fff;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+/* ===== Panel của <mat-select> (render trong body) ===== */
+/* Ghi đè trực tiếp các biến mà rule mặc định đang dùng */
+.cdk-overlay-container .month-panel,
+.cdk-overlay-container .month-panel.mat-primary {  /* .mat-primary bị gán tự động, nên override luôn */
+  /* chữ & icon của option đang CHỌN (xóa tím) */
+  --mat-option-selected-state-label-text-color: #000 !important;
+  --mat-option-selected-state-icon-color:  #000 !important;
+
+  /* đề phòng chỗ nào còn tham chiếu "primary" */
+  --mat-sys-primary: #000 !important;
+  --mdc-theme-primary: #000 !important;
+
+  /* màu chữ khi hover/active (tuỳ chọn) */
+  --mat-option-hover-state-label-text-color: #000 !important;
+}
+
+/* Nền panel & màu chữ tổng thể */
+.cdk-overlay-container .month-panel.mat-mdc-select-panel {
+  background: #fff !important;
+  color: #000 !important;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  padding: 6px 0;
+}
+
+/* Option trong panel */
+.cdk-overlay-container .month-panel .mat-mdc-option .mdc-list-item__primary-text {
+  color: #000 !important;
+}
+.cdk-overlay-container .month-panel .mat-mdc-option:hover,
+.cdk-overlay-container .month-panel .mat-mdc-option.mdc-list-item--activated {
+  background: #f3f7ff !important;
+}
+
+/* ===== Ô select (trigger) – bỏ tím ở label/arrow/viền) ===== */
+.month-field .mat-mdc-select-value-text { color:#000 !important; }
+.month-field .mat-mdc-select-arrow      { color:#000 !important; }
+.month-field .mat-mdc-form-field-label  { color:#000 !important; opacity:.7 !important; }
+.month-field.mat-mdc-form-field-focus .mat-mdc-form-field-label { opacity:.9 !important; }
+
+/* viền xám (thay tím) */
+.month-field .mdc-notched-outline__leading,
+.month-field .mdc-notched-outline__notch,
+.month-field .mdc-notched-outline__trailing { border-color:#c9c9c9 !important; }
+.month-field.mat-mdc-form-field-focus
+  .mdc-notched-outline__leading,
+.month-field.mat-mdc-form-field-focus
+  .mdc-notched-outline__notch,
+.month-field.mat-mdc-form-field-focus
+  .mdc-notched-outline__trailing { border-color:#222 !important; border-width:2px !important; }
+
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label--float-above {
+    color: #000 !important;
+}

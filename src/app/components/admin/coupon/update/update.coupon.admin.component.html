@@ -1,0 +1,52 @@
+<div class="container">
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Cập nhật điều kiện mã giảm giá</h4>
+
+      <!-- Multi Columns Form -->
+      <form class="row g-3" (ngSubmit)="updateCouponCondition()">
+        <div class="col-md-6">
+          <label for="attribute" class="form-label">Cách thức giảm giá<span style="color: red;"> (*)</span></label>
+          <select id="attribute" [(ngModel)]="updateCouponConditionData.attribute" name="attribute"
+              class="form-select" required>
+            <option value="amount">Theo giá trị</option>
+            <option value="date">Theo ngày</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="operator" class="form-label">Thao tác<span style="color: red;"> (*)</span></label>
+          <input type="text" id="operator" [(ngModel)]="updateCouponConditionData.operator" name="operator"
+              class="form-control col-md-3" required>
+        </div>
+        <div class="col-md-6">
+          <label for="value" class="form-label">Giá trị<span style="color: red;"> (*)</span></label>
+          
+          <input *ngIf="updateCouponConditionData.attribute === 'amount' || !updateCouponConditionData.attribute" 
+                 type="number" id="value_amount" [(ngModel)]="updateCouponConditionData.value" name="value_amount"
+                 class="form-control col-md-3" placeholder="Nhập giá trị (số)" required>
+          
+          <input *ngIf="updateCouponConditionData.attribute === 'date'"
+                 type="date" id="value_date" [(ngModel)]="updateCouponConditionData.value" name="value_date"
+                 class="form-control col-md-3" required>
+        </div>
+        <div class="col-md-6">
+          <label for="discountAmount" class="form-label">Giảm giá<span style="color: red;"> (*)</span></label>
+          <input type="text" id="discountAmount" [(ngModel)]="updateCouponConditionData.discountAmount"
+              name="discountAmount" class="form-control col-md-3" required>
+        </div>
+        
+        
+        <div class="col-12" >        
+          <div class="" style="text-align: right;">
+            <button style="margin-right: 10px;" type="submit" class="btn btn-primary">Sửa</button>
+            <button type="reset" class="btn btn-secondary" routerLink="/admin/coupons">Quay lại</button>
+          </div>
+        </div>
+        
+      </form><!-- End Multi Columns Form -->
+
+    </div>
+  </div>
+
+</div>

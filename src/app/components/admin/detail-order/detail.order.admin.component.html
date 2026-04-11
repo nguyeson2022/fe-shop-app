@@ -1,0 +1,88 @@
+<div class="container">
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Cập nhật trạng thái đơn hàng</h4>
+
+
+      <div class="row g-3">
+
+
+        <div class="col-md-6">
+          <label for="full-name" class="form-label">Mã đơn hàng: <span> {{ orderResponse.id }}</span></label>
+        </div>
+        <div class="col-md-6">
+          <label for="full-name" class="form-label">Họ tên: <span> {{ orderResponse.fullname }}</span></label>
+        </div>
+        <div class="col-md-6">
+          <label for="full-name" class="form-label">Số điện thoại: <span>{{ orderResponse.phone_number }}</span></label>
+        </div>
+        <div class="col-md-6">
+          <label for="full-name" class="form-label">Email: <span>{{ orderResponse.email }}</span></label>
+        </div>
+        <div class="col-md-6">
+          <label for="full-name" class="form-label">Địa chỉ nhận: <span> {{ orderResponse.address }}</span></label>
+        </div>
+        <div class="col-md-6">
+          <label for="full-name" class="form-label">Ghi chú: <span> {{ orderResponse.note }}</span></label>
+        </div>
+        <div class="col-md-6">
+          <label for="full-name" class="form-label">Ngặt đặt hàng: <span> {{ orderResponse.order_date | date
+              }}</span></label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="statusSelect" class="form-label">Trạng thái<span class="text-danger"> (*)</span></label>
+            <select class="form-control" id="statusSelect" [(ngModel)]="orderResponse.status" name="status" [disabled]="isOrderCompleted()">
+              <option value="" disabled>Chọn trạng thái</option>
+              <option value="PENDING">Chờ xử lý (Pending)</option>
+              <option value="PROCESSING">Đang xử lý (Processing)</option>
+              <!-- <option value="PAID">Đã thanh toán (Paid)</option> -->
+              <option value="SHIPPED">Đang giao hàng (Shipped)</option>
+              <!-- <option value="DELIVERED">Đã nhận hàng (Delivered)</option> -->
+              <option value="COMPLETED">Đã hoàn thành (Completed)</option>
+              <option value="CANCELLED">Hủy (Cancelled)</option>
+              <!-- <option value="FAILED">Thất bại (Failed)</option> -->
+            </select>
+          </div>
+        </div>
+        <h3>Thông tin sản phẩm</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Sản phẩm</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+              <th>Tổng tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let order_detail of orderResponse.order_details">
+              <td>{{ order_detail.product.name }}</td>
+              <td>
+                <p>{{order_detail.product.price | number:'1.0-0'}}</p>
+              <td>
+                <p>{{order_detail.number_of_products}}</p>
+              </td>
+              <td>{{ order_detail.total_money | number:'1.0-0' }}</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <div class="col-12">
+          <div class="" style="text-align: right;">
+            <button style="margin-right: 10px;" type="submit" (click)="saveOrder()" class="btn btn-primary" [disabled]="isOrderCompleted()">
+              Cập nhật
+          </button>
+            <button type="reset" class="btn btn-secondary" routerLink="/admin/orders">Quay lại</button>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>

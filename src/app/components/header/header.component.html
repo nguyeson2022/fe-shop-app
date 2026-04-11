@@ -1,0 +1,151 @@
+<!-- <section id="topbar" class="topbar py-0 border-bottom">
+    <div class="container">
+        <div class=" login-title-sm d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="topbar-title  nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
+                <li><a href="mailto:dientusonlam@gmail.com" class="nav-link px-2 ">dientusonlam&#64;gmail.com</a></li>
+                <li><a href="#" class="nav-link px-2 "><span>+84 123456789</span></a></li>
+            </ul>
+
+            <div class="topbar-icon d-none d-md-flex align-items-center text-end">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+</section> -->
+<section>
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center header-content justify-content-between">
+      <div class="d-flex align-items-center justify-content-center">
+        <div id="logo">
+          <img src="./assets/images/logo.png" alt="Shop Logo" />
+        </div>
+        <div style="margin-top: 34px;">
+          <p class="shop-name">MinhTiến</p>
+          <p class="shop-description">your best choice</p>
+        </div>
+      </div>
+      <div class="shop-contact">
+        <p>055-991-9290</p>
+        <p>Email: tienlm&#64;gmail.com</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEADER -->
+<header id="header" class="header d-flex align-items-center justify-content-center">
+  <div class="menu d-flex align-items-center justify-content-center g-3">
+    <nav id="navbar_mobile" class="d-sm-inline-flex p-2 d-sm-none">
+      <button
+        class="btn-nav"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mobile"
+        aria-controls="mobile"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span>
+          <a><i class="fa-solid fa-bars"></i> </a>
+        </span>
+      </button>
+    </nav>
+
+    <!-- <div id="logo">
+      <a class="navbar-logo" href="index.html"
+        ><img src="./assets/images/logo.png"
+      /></a>
+    </div> -->
+
+    <nav id="moblie" class="navbar d-none d-md-flex" style="padding: 0px;">
+      <ul>
+        <li>
+          <a class="nav-link scrollto active" routerLink="/">Trang chủ</a>
+        </li>
+        <li><a class="nav-link scrollto" href="#about-list">Giới thiệu</a></li>
+        <li class="dropdown">
+          <a routerLink="/product-list"
+            ><span>Sản phẩm</span> <i class="bi bi-chevron-down"></i
+          ></a>
+          <ul class="dropdown-menu">
+            <li class="dropdown" *ngFor="let item of categories">
+              <a
+                [routerLink]="['/product-list']"
+                [queryParams]="{ categoryId: item.id }"
+                type="button"
+                ><span>{{ item.name }}</span></a
+              >
+            </li>
+          </ul>
+        </li>
+        <li><a class="nav-link scrollto" routerLink="/articles">Tin tức</a></li>
+
+        <li><a class="nav-link scrollto" href="#contact">Liên hệ</a></li>
+
+        <form
+          style="margin-left: 50px"
+          class="input-group ms-5 search-form"
+          (submit)="onSearch()"
+          name="frmSearch"
+          id="frmSearch"
+        >
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Tìm sản phẩm"
+            [(ngModel)]="keyword"
+            name="searchInput"
+          />
+          <select
+            class="form-control product-category"
+            [(ngModel)]="selectedCategoryId"
+            name="category"
+          >
+            <option [value]="0">Tất cả</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+          <button class="btn btn-search" type="submit">
+            <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </ul>
+    </nav>
+    <!-- .navbar -->
+    <nav style="width: 200px" class="nav-icon ms-2 drop_menu">
+      <form class="d-flex text-end">
+        <li>
+          <ng-container *ngIf="userResponse">
+            <div class="dropdown">
+              <a class="nav-link" (click)="togglePopover($event)">
+                {{ userResponse.fullname }}
+              </a>
+              <div class="dropdown-content" style="margin-top: 0px;" *ngIf="userResponse">
+                <a class="popover-item" (click)="handleItemClick(0)"
+                  >Thông tin cá nhân</a
+                >
+                <a class="popover-item" (click)="handleItemClick(1)">Đơn mua</a>
+                <a class="popover-item" (click)="handleItemClick(2)"
+                  >Đăng xuất</a
+                >
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!userResponse">
+            <a class="nav-link" routerLink="/login"
+              ><i class="icon-setting fa-regular fa-circle-user ms-3"></i
+            ></a>
+          </ng-container>
+        </li>
+        <a style="margin-left: 5px" class="cart_shop" routerLink="/orders"
+          ><i class="icon-cart d-none d-md-flex fa-solid fa-cart-shopping"></i
+        ></a>
+      </form>
+    </nav>
+  </div>
+</header>
+<!-- End Header -->

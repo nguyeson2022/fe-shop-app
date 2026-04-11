@@ -1,0 +1,104 @@
+
+<div class="pagetitle">
+  <h1>Sản phẩm</h1>
+  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Trang quản lý</a></li>
+        <li class="breadcrumb-item">Quản lý sản phẩm</li>
+        <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+      </ol>
+    </nav>
+    <nav>
+      <div>
+        <button class="btn btn-success" (click)="insertProduct()">Thêm mới</button>
+      </div>
+    </nav>
+</div><!-- End Page Title -->
+<div class="row mb-3">
+  <div class="col-md-8">
+    <input type="text" class="form-control search-input" placeholder="Tìm sản phẩm" [(ngModel)]="keyword">
+  </div>
+  <div class="col-md-4">
+    <button class="btn btn-primary" (click)="searchProducts()">Tìm kiếm</button>
+  </div>
+</div>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12 table_styles">
+
+      <div class="card ">
+        <div class="card-body">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tên sản phẩm</th>
+              <th scope="col">Giá</th>
+              <th scope="col">Số lượng tồn</th>
+              <th scope="col">Hình ảnh</th>
+              <th scope="col">Thương hiệu</th>
+              <th scope="col">Nội dung</th>
+              <th scope="col">Hành động</th>
+            </tr>
+            </thead>
+            <tbody >
+
+                <tr *ngFor="let product of products; let i = index">
+                  <td>
+                    {{(currentPage - 1) * itemsPerPage + i + 1}}</td>
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.price | currency:'VND':'symbol':'1.0-0' }}</td>
+                  <td>{{ product.stock !== undefined ? product.stock : 'N/A' }}</td>
+                  <td><img src="{{ product.url }}"
+                      class="rounded-square" alt="Thumbnail"
+                      width="100" height="100"></td>
+                      <td>{{ product.category_id  }}</td>
+                  <td>{{ product.description  }}</td>
+                  <td>
+                    <div style="display: flex; gap: 10px;">
+                      <button class="btn btn-warning" (click)="updateProduct(product.id)"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button class="btn btn-danger" (click)="deleteProduct(product)"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+
+
+            </tbody>
+          </table>
+          <!-- End Default Table Example -->
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+<div class="d-flex justify-content-center mt-2">
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" *ngIf="currentPage > 1">
+        <a class="page-link"  (click)="onPageChange(1)">First</a>
+      </li>
+      <li class="page-item" *ngIf="currentPage > 1">
+        <a class="page-link"  (click)="onPageChange(currentPage - 1)">Previous</a>
+      </li>
+      <ng-container *ngFor="let page of visiblePages">
+        <li class="page-item" [ngClass]="{'active': page === currentPage}">
+          <a class="page-link"  (click)="onPageChange(page)">{{ page }}</a>
+        </li>
+      </ng-container>
+      <li class="page-item" *ngIf="currentPage < totalPages">
+        <a class="page-link"  (click)="onPageChange(currentPage + 1)">Next</a>
+      </li>
+      <li class="page-item" *ngIf="currentPage < totalPages">
+        <a class="page-link"  (click)="onPageChange(totalPages)">Last</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+

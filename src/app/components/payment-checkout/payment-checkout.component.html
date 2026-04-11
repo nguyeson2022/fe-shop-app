@@ -1,0 +1,176 @@
+<div class="payment-checkout-container">
+  
+  <!-- Header Section -->
+  <div class="payment-header">
+    <button class="back-btn" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i>
+      Quay lại
+    </button>
+    <h2>Thanh toán đơn hàng</h2>
+    <div class="timer-display" [ngClass]="{'timer-warning': paymentTimer < 300}">
+      <i class="fas fa-clock"></i>
+      {{ formatTime(paymentTimer) }}
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Đang tải thông tin thanh toán...</p>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!isLoading" class="payment-content">
+    
+    <!-- Order Information -->
+    <div class="order-info-section">
+      <h3>Thông tin đơn hàng</h3>
+      <div class="order-summary">
+        <div class="order-detail">
+          <span class="label">Mã đơn hàng:</span>
+          <span class="value">#{{ orderCode }}</span>
+        </div>
+        <div class="order-detail">
+          <span class="label">Tổng tiền:</span>
+          <span class="value amount">{{ formatCurrency(totalAmount) }}</span>
+        </div>
+      </div>
+      
+      <!-- Buyer Information -->
+      <div *ngIf="buyerInfo" class="buyer-info">
+        <h4>Thông tin người mua</h4>
+        <div class="buyer-details">
+          <div class="buyer-field">
+            <i class="fas fa-user"></i>
+            <span>{{ buyerInfo.fullname }}</span>
+          </div>
+          <div class="buyer-field">
+            <i class="fas fa-envelope"></i>
+            <span>{{ buyerInfo.email }}</span>
+          </div>
+          <div class="buyer-field">
+            <i class="fas fa-phone"></i>
+            <span>{{ buyerInfo.phone_number }}</span>
+          </div>
+          <div class="buyer-field">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ buyerInfo.address }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Items -->
+      <div *ngIf="orderItems.length > 0" class="order-items">
+        <h4>Sản phẩm đã đặt ({{ orderItems.length }} sản phẩm)</h4>
+        <div class="items-list">
+          <div *ngFor="let item of orderItems" class="item-card">
+            <img [src]="getProductImageUrl(item.thumbnail)" [alt]="item.product_name" class="item-image">
+            <div class="item-details">
+              <h5 class="item-name">{{ item.product_name }}</h5>
+              <div class="item-info">
+                <span class="quantity">Số lượng: {{ item.number_of_products }}</span>
+                <span class="price">{{ formatCurrency(item.price) }}</span>
+              </div>
+              <div class="item-total">
+                Thành tiền: {{ formatCurrency(item.total_money) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Section -->
+    <div class="payment-section">
+      <h3>QR Code Thanh toán</h3>
+      
+      <!-- Payment Status -->
+      <div class="payment-status" [ngClass]="'status-' + paymentStatus">
+        <div *ngIf="paymentStatus === 'pending'" class="status-pending">
+          <i class="fas fa-qrcode"></i>
+          <span>Vui lòng quét mã QR để thanh toán</span>
+        </div>
+        <div *ngIf="paymentStatus === 'success'" class="status-success">
+          <i class="fas fa-check-circle"></i>
+          <span>Thanh toán thành công, tự động chuyển hướng trong {{ successCountdown }}s</span>
+        </div>
+        <div *ngIf="paymentStatus === 'expired'" class="status-expired">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span>Phiên thanh toán đã hết hạn</span>
+        </div>
+        <div *ngIf="paymentStatus === 'failed'" class="status-failed">
+          <i class="fas fa-times-circle"></i>
+          <span>Thanh toán thất bại</span>
+        </div>
+        <!-- <div *ngIf="paymentStatus === 'timeout'" class="status-timeout">
+          <i class="fas fa-clock"></i>
+          <span>Đã hết thời gian kiểm tra thanh toán. Vui lòng thử lại.</span>
+        </div> -->
+      </div>
+
+      <!-- Payment Status Progress (khi đang pending) -->
+      <!-- <div *ngIf="paymentStatus === 'pending'" class="payment-progress">
+        <div class="progress-info">
+          <span>Đang kiểm tra trạng thái thanh toán...</span>
+          <span class="progress-count">{{ statusCheckCount }}/{{ maxStatusChecks }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="(statusCheckCount / maxStatusChecks) * 100"></div>
+        </div>
+      </div> -->
+
+      <!-- QR Code Container -->
+      <div *ngIf="paymentStatus === 'pending'" class="qr-container">
+        
+        <!-- Native QR Code (if available) -->
+        <div *ngIf="qrCodeImageUrl" class="qr-wrapper qr-native">
+          <div class="qr-title">Quét mã QR để thanh toán</div>
+          <img [src]="qrCodeImageUrl" alt="PayOS QR Code" class="qr-image">
+          <div class="qr-info">
+            <p><strong>Chủ tài khoản:</strong> LE MINH TIEN</p>
+            <p><strong>Ngân hàng:</strong> MB BANK</p>
+          </div>
+        </div>
+        
+        <!-- Fallback: Embedded PayOS Page -->
+        <div *ngIf="!qrCodeImageUrl && checkoutUrl" class="qr-wrapper qr-iframe-container">
+          <div class="qr-title">Trang thanh toán PayOS</div>
+          <iframe 
+            [src]="checkoutUrl" 
+            class="qr-iframe"
+            title="PayOS Payment QR">
+          </iframe>
+        </div>
+        
+        <!-- Fallback Button -->
+        <div class="fallback-actions">
+          <button class="open-tab-btn" (click)="openInNewTab()">
+            <i class="fas fa-external-link-alt"></i>
+            Mở trong tab mới
+          </button>
+        </div>
+      </div>
+
+      <!-- Retry Button for Expired/Failed -->
+      <div *ngIf="paymentStatus === 'expired' || paymentStatus === 'failed'" class="retry-section">
+        <button class="retry-btn" (click)="retryPayment()">
+          <i class="fas fa-redo-alt"></i>
+          Thử lại thanh toán
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer Info -->
+  <div class="payment-footer">
+    <div class="security-info">
+      <i class="fas fa-shield-alt"></i>
+      <span>Giao dịch được bảo mật bởi PayOS</span>
+    </div>
+    <div class="help-info">
+      <span>Cần hỗ trợ? Liên hệ: 1900-xxx-xxx</span>
+    </div>
+  </div>
+
+</div>

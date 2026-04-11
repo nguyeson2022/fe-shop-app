@@ -1,0 +1,201 @@
+/**********TOPBAR**********/
+.topbar {
+  background: #369dc5;
+}
+
+.topbar .topbar-title li a,
+.topbar .topbar-title li a span {
+  padding-left: 5px;
+  color: #fff;
+}
+.topbar .topbar-icon a {
+  margin-left: 20px;
+  color: #fff;
+}
+
+.topbar .topbar-title li a:hover,
+.topbar .topbar-title li a span:hover,
+.topbar .topbar-icon a:hover {
+  opacity: 80%;
+}
+/********Header***************/
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+  /* background: #fff; */
+  transition: all 0.5s ease;
+  text-decoration: none;
+  background: linear-gradient(#ffffff, #f3f3f3);
+  /* border-bottom: 1px solid var(--line); */
+  padding: 25px 0 0 0;
+}
+
+#header #logo h1 {
+  color: #505050;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 0;
+  text-decoration: none;
+}
+
+#header #logo h1 a {
+  color: #555;
+  display: inline-block;
+  text-decoration: none;
+}
+
+#header #logo h1 a span {
+  color: #71c55d;
+}
+
+#header #logo img {
+  padding: 0;
+  margin: 0;
+}
+
+.header-content {
+  flex-wrap: nowrap;
+}
+.shop-name {
+  font-family: serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #222;
+  letter-spacing: 4.5px;
+  margin-bottom: 0px;
+}
+
+.shop-description {
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-bottom: 0px;
+  letter-spacing: 3px;
+}
+.shop-contact{
+  margin-right: 6rem;
+}
+
+.shop-contact p {
+  margin-bottom: 0px;
+  text-decoration: underline;
+}
+
+.shop-contact p:nth-child(1) {
+  font-family: serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #222;
+  letter-spacing: 2px;
+}
+
+.shop-contact p:nth-child(2) {
+  font-weight: 400;
+  font-style: italic;
+}
+#logo {
+  margin-right: 2rem;
+}
+#logo img {
+  width: 300px;
+  height: 85px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#header .header-scrolled {
+  background: #fff;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+  padding: 12px 0;
+}
+#header .dropdown a {
+  text-decoration: none;
+}
+#header .drop_menu li {
+  list-style-type: none;
+}
+
+#header .cart_shop {
+  text-decoration: none !important;
+}
+
+#logo .navbar-logo img {
+  height: 60px;
+  width: 120px;
+}
+
+/* Add this CSS to your project's stylesheet */
+
+.drop_menu .popover-list {
+  padding: 10px;
+}
+.popover-body {
+  padding: 0px;
+}
+.popover-item {
+  display: block;
+  margin-bottom: 5px;
+  text-decoration: none;
+  color: #333;
+}
+
+.popover-item:hover {
+  background-color: #f0f0f0;
+  color: #881c1c;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+.navbar .btn-search:hover {
+  opacity: 0.9;
+  color: white;
+  background-color: #d63384;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown:hover .nav-link {
+  background-color: #f9f9f9;
+}
+
+.dropdown-menu {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.menu{
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}

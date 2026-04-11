@@ -1,0 +1,10 @@
+@import "../../styles/style.css";
+
+.nav-name {
+    color: white;
+}
+
+.nav-name:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

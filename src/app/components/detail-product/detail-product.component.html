@@ -1,0 +1,165 @@
+<app-header></app-header>
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" style=" padding: auto; border-top: 1px solid #e4e7ed;" class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumb-tree" style="font-size: 25px;">
+          <li><a href="#">Trang chủ</a></li>
+          <li><a href="#">Sản phẩm</a></li>
+          <li class="active">Chi tiết sản phẩm</li>
+        </ul>
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <!-- Product main img -->
+      <div class="col-md-5 col-md-push-2">
+        <div *ngFor="let image of product?.product_images; let i = index" class="carousel-item"
+          [ngClass]="{'active': i === currentImageIndex}" id="product-main-img">
+          <div class="product-preview">
+            <img [src]="image.image_url" alt="">
+          </div>
+        </div>
+      </div>
+      <!-- /Product main img -->
+
+      <div class="col-md-2 col-md-pull-5">
+        <div id="product-imgs" *ngFor="let image of product?.product_images; let i = index" class="thumbnail-item"
+          [ngClass]="{'active': i === currentImageIndex}" (click)="thumbnailClick(i)">
+          <div class="product-preview">
+            <img [src]="image.image_url" alt="">
+          </div>
+        </div>
+      </div>
+
+      <!-- Product details -->
+      <div class="col-md-5">
+        <div class="product-details">
+          <h2 class="product-name">{{product?.name}}</h2>
+          <div>
+            <h3 class="product-price">{{product?.price | number:'1.0-0'}} </h3>
+            <!-- Stock Information -->
+            <div class="stock-info-detail" style="margin-top: 5px; margin-bottom: 10px; font-size: 14px;">
+              <ng-container [ngSwitch]="true">
+                <span *ngSwitchCase="product && product.stock != null && product.stock > 5" style="color: green; font-weight: bold;">Còn hàng ({{product?.stock}})</span>
+                <span *ngSwitchCase="product && product.stock != null && product.stock > 0 && product.stock <= 5" style="color: orange; font-weight: bold;">Sắp hết hàng (Chỉ còn {{product?.stock}})</span>
+                <span *ngSwitchCase="product && product.stock != null && product.stock === 0" style="color: red; font-weight: bold; font-size: 48px;">Hết hàng</span>
+                <span *ngSwitchDefault style="color: grey; font-weight: bold; font-size: 48px;">Tạm hết hàng</span>
+              </ng-container>
+            </div>
+          </div>
+          <p style="text-align: justify;">{{product?.description}}</p>
+
+          <div class="add-to-cart">
+            <div class="qty-label">
+              Số lượng
+              <div class="input-number">
+                <input type="number" [value]="quantity">
+                <span class="qty-up" (click)="increateQuantity()">+</span>
+                <span class="qty-down" (click)="decreaseQuantity()">-</span>
+              </div>
+            </div>
+            <button class="add-to-cart-btn" (click)="buyNow()" *ngIf="product && product.stock != null && product.stock > 0"><i class="fa fa-shopping-cart"></i>Mua ngay</button>
+          </div>
+
+          <ul class="product-links">
+            <li>Loại sản phẩm:</li>
+            <li><a >{{product?.category_id}}</a></li>
+            <!-- <li><a href="#">Accessories</a></li> -->
+          </ul>
+        </div>
+      </div>
+      <!-- /Product details -->
+      <div class="group_table">
+        <mat-tab-group animationDuration="2ms">
+          <mat-tab label="Mô tả">{{product?.description}}</mat-tab>
+          <mat-tab label="Đánh giá">
+            <div style="display: flex; justify-content: space-around;">
+              <!-- Reviews -->
+              <div class="col-md-6">
+                <div id="reviews">
+                  <ul class="reviews">
+                    <li *ngFor="let comment of comments">
+                      <div class="review-heading">
+                        <h5 style="font-size: 16px;" class="name">{{ comment.user }}</h5>
+                        <div class="review-rating">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                      </div>
+                      <div class="review-body">
+                        <p>{{ comment.content }}</p>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="d-flex justify-content-center mt-2">
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination">
+                        <li class="page-item" *ngIf="currentPage > 1">
+                          <a class="page-link" (click)="onPageChange(1)">First</a>
+                        </li>
+                        <li class="page-item" *ngIf="currentPage > 1">
+                          <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+                        </li>
+                        <ng-container *ngFor="let page of visiblePages">
+                          <li class="page-item" [ngClass]="{'active': page === currentPage}">
+                            <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+                          </li>
+                        </ng-container>
+                        <li class="page-item" *ngIf="currentPage < totalPages">
+                          <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+                        </li>
+                        <li class="page-item" *ngIf="currentPage < totalPages">
+                          <a class="page-link" (click)="onPageChange(totalPages)">Last</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+              <!-- /Reviews -->
+          
+              <!-- Review Form -->
+              <div class="col-md-3">
+                <div id="review-form">
+                  <form class="review-form" (ngSubmit)="submitReview()">
+                    <textarea class="input" name="reviewContent" [(ngModel)]="reviewContent"
+                      placeholder="Đánh giá về sản phẩm"></textarea>
+                    <button type="submit" class="primary-btn">Đánh giá</button>
+                  </form>
+                </div>
+              </div>
+              <!-- /Review Form -->
+            </div>
+          </mat-tab>
+
+        </mat-tab-group>
+      </div>
+
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /SECTION -->
+<app-contact></app-contact>
+
+
+<app-footer></app-footer>

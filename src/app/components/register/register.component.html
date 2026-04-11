@@ -1,0 +1,162 @@
+<div class="register-wrapper">
+  <div class="register-container">
+    <div class="register-form-card">
+      
+      <!-- Header -->
+      <div class="register-header">
+        <h2>Đăng ký tài khoản</h2>
+        <p>Tham gia cùng chúng tôi hôm nay!</p>
+      </div>
+
+      <!-- Form -->
+      <form #registerForm="ngForm" (ngSubmit)="register()" class="register-form">
+        
+        <!-- Full Name & Phone Row -->
+        <div class="form-row">
+          <div class="form-group half">
+            <label for="fullName">Tên đầy đủ</label>
+            <div class="input-group">
+              <i class="fas fa-user input-icon"></i>
+              <input 
+                type="text" 
+                id="fullName"
+                name="fullName"
+                [(ngModel)]="fullName"
+                placeholder="Tên đầy đủ"
+                class="form-control"
+                required>
+            </div>
+          </div>
+          
+          <div class="form-group half">
+            <label for="phoneNumber">Số điện thoại</label>
+            <div class="input-group">
+              <i class="fas fa-phone input-icon"></i>
+              <input 
+                type="text" 
+                id="phoneNumber"
+                name="phoneNumber"
+                [(ngModel)]="phoneNumber"
+                placeholder="Số điện thoại"
+                class="form-control"
+                required>
+            </div>
+            <p class="error-message" *ngIf="phoneNumber.length < 6 && registerForm.form.touched">
+              Số điện thoại phải có ít nhất 6 ký tự
+            </p>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Địa chỉ Email</label>
+          <div class="input-group">
+            <i class="fas fa-envelope input-icon"></i>
+            <input 
+              type="email" 
+              id="email"
+              name="email"
+              [(ngModel)]="email"
+              placeholder="Địa chỉ email của bạn"
+              class="form-control"
+              required>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="form-group">
+          <label for="address">Địa chỉ</label>
+          <div class="input-group">
+            <i class="fas fa-map-marker-alt input-icon"></i>
+            <input 
+              type="text" 
+              id="address"
+              name="address"
+              [(ngModel)]="address"
+              placeholder="Địa chỉ của bạn"
+              class="form-control"
+              required>
+          </div>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-group">
+          <label for="dateOfBirth">Ngày sinh</label>
+          <div class="input-group">
+            <i class="fas fa-calendar input-icon"></i>
+            <input 
+              type="date" 
+              id="dateOfBirth"
+              name="dateOfBirth"
+              [(ngModel)]="dateOfBirth"
+              class="form-control"
+              (input)="registerForm.form.markAsTouched(); checkAge()"
+              required>
+          </div>
+          <p class="error-message" *ngIf="registerForm.controls['dateOfBirth']?.hasError('invalidAge') && registerForm.form.touched">
+            Bạn phải ít nhất 18 tuổi
+          </p>
+        </div>
+
+        <!-- Password Row -->
+        <div class="form-row">
+          <div class="form-group half">
+            <label for="password">Password</label>
+            <div class="input-group">
+              <i class="fas fa-lock input-icon"></i>
+              <input 
+                type="password" 
+                id="password"
+                name="password"
+                [(ngModel)]="password"
+                placeholder="Password"
+                class="form-control"
+                required>
+            </div>
+            <p class="error-message" *ngIf="password.length < 6 && registerForm.form.touched">
+              Mật khẩu phải có ít nhất 6 ký tự
+            </p>
+          </div>
+          
+          <div class="form-group half">
+            <label for="retypePassword">Xác nhận mật khẩu</label>
+            <div class="input-group">
+              <i class="fas fa-lock input-icon"></i>
+              <input 
+                type="password" 
+                id="retypePassword"
+                name="retypePassword"
+                [(ngModel)]="retypePassword"
+                placeholder="Confirm password"
+                class="form-control"
+                (input)="registerForm.form.markAsTouched(); checkPasswordMatch()"
+                required>
+            </div>
+            <p class="error-message" *ngIf="retypePassword.length < 6 && registerForm.form.touched">
+              Mật khẩu phải có ít nhất 6 ký tự
+            </p>
+            <p class="error-message" *ngIf="registerForm.controls['retypePassword']?.hasError('passwordMismatch') && registerForm.form.touched">
+              Mật khẩu không khớp
+            </p>
+          </div>
+        </div>
+
+        <!-- Register Button -->
+        <button type="submit" class="btn-register">
+          Tạo tài khoản
+        </button>
+
+        <!-- Links -->
+        <div class="form-links">
+          <div class="forgot-password">
+            <a href="javascript:void(0)">Quên mật khẩu?</a>
+          </div>
+          <div class="login-link">
+            <p>Đã có tài khoản? <a routerLink="/login">Đăng nhập</a></p>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>

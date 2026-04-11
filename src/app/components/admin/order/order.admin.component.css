@@ -1,0 +1,69 @@
+/* Status Badges */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  min-width: 100px;
+}
+
+/* Pending Status */
+.status-badge[style*="PENDING"],
+.status-badge[style*="pending"] {
+  background: linear-gradient(135deg, #FFA500, #FF8C00);
+  border-left: 4px solid #FF8C00;
+}
+
+/* Processing Status */
+.status-badge[style*="PROCESSING"],
+.status-badge[style*="processing"] {
+  background: linear-gradient(135deg, #1E90FF, #007BFF);
+  border-left: 4px solid #007BFF;
+}
+
+/* Shipped Status */
+.status-badge[style*="SHIPPED"],
+.status-badge[style*="shipped"] {
+  background: linear-gradient(135deg, #87CEEB, #1E90FF);
+  border-left: 4px solid #1E90FF;
+}
+
+/* Delivered Status */
+.status-badge[style*="DELIVERED"],
+.status-badge[style*="delivered"] {
+  background: linear-gradient(135deg, #32CD32, #28A745);
+  border-left: 4px solid #28A745;
+}
+
+/* Completed Status */
+.status-badge[style*="COMPLETED"],
+.status-badge[style*="completed"] {
+  background: linear-gradient(135deg, #90EE90, #32CD32);
+  border-left: 4px solid #32CD32;
+}
+
+/* Cancelled Status */
+.status-badge[style*="CANCELLED"],
+.status-badge[style*="cancelled"] {
+  background: linear-gradient(135deg, #FFA07A, #FF4500);
+  border-left: 4px solid #FF4500;
+}
+
+/* Failed Status */
+.status-badge[style*="FAILED"],
+.status-badge[style*="failed"] {
+  background: linear-gradient(135deg, #FF6B6B, #FF0000);
+  border-left: 4px solid #FF0000;
+}
+
+/* Paid Status */
+.status-badge[style*="PAID"],
+.status-badge[style*="paid"] {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border-left: 4px solid #45a049;
+}

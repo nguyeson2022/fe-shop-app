@@ -1,0 +1,45 @@
+<div class="container">
+
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Cập nhật người dùng</h4>
+
+        <!-- Multi Columns Form -->
+        <form class="row g-3" (ngSubmit)="updateUser()">
+          <div class="col-md-6">
+            <label  for="full-name" class="form-label">Họ tên<span style="color: red;"> (*)</span></label>
+            <input type="text" id="fullname" [(ngModel)]="updateUserData.fullname" name="fullname" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label for="phone_number" class="form-label">Số điện thoại<span style="color: red;"> (*)</span></label>
+            <input type="text" id="phone_number" [(ngModel)]="updateUserData.phone_number"
+                     name="phone_number" class="form-control col-md-3" required>
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email<span style="color: red;"> (*)</span></label>
+            <input type="text" id="email" [(ngModel)]="updateUserData.email"
+                     name="email" class="form-control col-md-3" required>
+          </div>
+          <div class="col-md-6">
+            <label for="date_of_birth" class="form-label">Ngày sinh<span style="color: red;"> (*)</span></label>
+            <input id="date_of_birth" type="date" [(ngModel)]="updateUserData.date_of_birth" name="date_of_birth" class="form-control" required>
+          </div>
+          <div class="col-12">
+            <label for="address" class="form-label">Địa chỉ<span style="color: red;"> (*)</span></label>
+            <input type="text" id="address" [(ngModel)]="updateUserData.address"
+                     name="address" class="form-control col-md-3" required>
+          </div>
+          
+          <div class="col-12" >        
+            <div class="" style="text-align: right;">
+              <button style="margin-right: 10px;" type="submit" class="btn btn-primary">Sửa</button>
+              <button type="reset" class="btn btn-secondary" routerLink="/admin/users">Quay lại</button>
+            </div>
+          </div>
+          
+        </form><!-- End Multi Columns Form -->
+
+      </div>
+    </div>
+  
+</div>

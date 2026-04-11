@@ -1,0 +1,44 @@
+﻿
+/* Các xử lý mã định dạng cho thẻ html*/
+/* Mã định dạng này được sử dụng cho file basic.html*/
+
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600&display=swap');
+/* Fonts */
+:root {
+  --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-primary: 'Mulish', sans-serif;
+  --font-secondary: "Poppins", sans-serif;
+}
+/* Colors */
+:root {
+  --color-default: #0a0d13;
+  --color-primary: #d63384;
+  --color-secondary: #0d42ff;
+}
+
+/* Smooth scroll behavior */
+:root {
+  scroll-behavior: smooth;
+}
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family:'Mulish', sans-serif;
+  color: var(--color-default);
+}
+
+section {
+	width:auto;
+	margin-right:auto;
+}
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: #406aff;
+  text-decoration: none;
+}

@@ -1,0 +1,104 @@
+<div class="pagetitle">
+  <h1>Hình ảnh sản phẩm</h1>
+  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Trang quản lý</a></li>
+        <li class="breadcrumb-item">Quản lý hình ảnh</li>
+        <li class="breadcrumb-item active">Danh sách hình ảnh</li>
+      </ol>
+    </nav>
+    <nav>
+      <div>
+        <button class="btn btn-success" (click)="insertImages()">
+          <span style="vertical-align: middle;">Thêm mới</span>
+          
+        </button>
+      </div>
+    </nav>
+</div><!-- End Page Title -->
+<form #searchForm="ngForm" (ngSubmit)="searchProductImages()">
+  <div class="form-group" style="display: flex; justify-content: space-between;">
+    
+    <div style="display: flex; margin-bottom: 15px; align-items: center;">
+      <label for="productId">Chọn sản phẩm:</label>
+      <select style="width: 500px;" class="form-select" id="productId" name="productId" [(ngModel)]="selectedProductId" required>
+        <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+      </select>
+      <button style="margin-left: 15px;" type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+    <div>
+      <button type="submit" (click)="reloadPage()" class="btn btn-primary">Reload</button>
+    </div>
+    
+  </div>
+  
+</form>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12 table_styles">
+
+      <div class="card ">
+        <div class="card-body">
+
+          <!-- Default Table -->
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Sản phẩm</th>
+              <th scope="col">Hình ảnh</th>
+              <th scope="col">Hành động</th>
+            </tr>
+            </thead>
+            <tbody >
+
+                <tr *ngFor="let imageData of productImages; let i = index">
+                  <td>
+                    {{(currentPage - 1) * itemsPerPage + i + 1}}</td>
+                  <td>{{ imageData.productName }}</td>
+                  <td><img [src]="imageData.imageUrl" class="rounded-square" alt="Thumbnail" width="100" height="100"></td>
+                  <td>
+                    <div style="display: flex; gap: 10px;">
+                      <button class="btn btn-danger" (click)="deleteImage(imageData.id)"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+          <!-- End Default Table Example -->
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+<div class="d-flex justify-content-center mt-2">
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" *ngIf="currentPage > 1">
+        <a class="page-link"  (click)="onPageChange(1)">First</a>
+      </li>
+      <li class="page-item" *ngIf="currentPage > 1">
+        <a class="page-link"  (click)="onPageChange(currentPage - 1)">Previous</a>
+      </li>
+      <ng-container *ngFor="let page of visiblePages">
+        <li class="page-item" [ngClass]="{'active': page === currentPage}">
+          <a class="page-link"  (click)="onPageChange(page)">{{ page }}</a>
+        </li>
+      </ng-container>
+      <li class="page-item" *ngIf="currentPage < totalPages">
+        <a class="page-link"  (click)="onPageChange(currentPage + 1)">Next</a>
+      </li>
+      <li class="page-item" *ngIf="currentPage < totalPages">
+        <a class="page-link"  (click)="onPageChange(totalPages)">Last</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+
+

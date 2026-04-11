@@ -1,0 +1,274 @@
+@import '../../styles/userStyle.css';
+
+/* Pagination Styles */
+.store-bottom-filter {
+  margin: 40px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.page-item {
+  margin: 0 2px;
+}
+
+.page-item:first-child .page-link {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.page-item:last-child .page-link {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: 8px 14px;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.page-link:hover {
+  z-index: 2;
+  color: #0056b3;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.pagination-info {
+  font-size: 0.9em;
+  color: #6c757d;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Hover effect for better UX */
+.page-link:not(.disabled):not(.active):hover {
+  background-color: #f8f9fa;
+}
+
+/* Dien May Xanh inspired styles for product listing */
+.product-card-dmx {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure cards in a row have same height if needed */
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.product-card-dmx:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.product-image-dmx {
+  text-align: center;
+  margin-bottom: 15px;
+  position: relative; /* For potential labels */
+}
+
+.product-image-dmx img {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px; /* Adjust as needed */
+  object-fit: contain;
+}
+
+/* Placeholder for discount labels */
+.product-labels-dmx {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.label-discount-dmx {
+  background-color: #ff0000; /* Example color */
+  color: white;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+}
+
+.product-info-dmx {
+  text-align: left;
+  flex-grow: 1; /* Allows info to take available space */
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name-dmx {
+  font-size: 1em; /* Adjusted from 1.1em to 1em */
+  font-weight: 600;
+  margin-bottom: 8px;
+  height: 3.2em; /* Approx 2 lines of text, adjust based on font */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  line-clamp: 2; /* Standard property for compatibility */
+  -webkit-box-orient: vertical;
+}
+
+.product-name-dmx a {
+  color: #333;
+  text-decoration: none;
+}
+
+.product-name-dmx a:hover {
+  color: #007bff; /* Example hover color */
+}
+
+.product-price-dmx {
+  margin-bottom: 10px;
+}
+
+.current-price-dmx {
+  font-size: 1.2em; /* Adjusted from 1.3em to 1.2em */
+  font-weight: bold;
+  color: #d0021b; /* Dien May Xanh's red */
+}
+
+.old-price-dmx {
+  font-size: 0.9em;
+  color: #888;
+  text-decoration: line-through;
+  margin-left: 8px;
+}
+
+.discount-percentage-dmx {
+  font-size: 0.9em;
+  color: #d0021b;
+  margin-left: 8px;
+  font-weight: bold;
+}
+
+.product-category-dmx,
+.product-brand-dmx {
+  font-size: 0.85em;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+.stock-status-dmx {
+  font-size: 0.8em;
+  margin-top: auto; /* Pushes to the bottom of info section if using flex */
+  padding-top: 8px; /* Add some space above */
+}
+
+.product-actions-dmx {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between buttons */
+}
+
+.product-actions-dmx button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: background-color 0.2s ease;
+}
+
+.btn-buy-now-dmx {
+  background-color: #f57224; /* Orange color, common for 'buy now' */
+  color: white;
+  font-weight: bold;
+}
+
+.btn-buy-now-dmx:hover {
+  background-color: #e06014;
+}
+
+.btn-add-to-cart-dmx {
+  background-color: #007bff; /* Blue color, common for 'add to cart' */
+  color: white;
+}
+
+.btn-add-to-cart-dmx:hover {
+  background-color: #0056b3;
+}
+
+.btn-add-to-cart-dmx i {
+  margin-right: 5px;
+}
+
+.btn-compare-dmx {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.btn-compare-dmx:hover {
+  background-color: #e0e0e0;
+}
+
+.btn-compare-dmx i {
+  margin-right: 5px;
+}
+
+/* Optional: Ensure consistent height for product name and make it clickable */
+.product-name-dmx {
+    cursor: pointer;
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 768px) {
+  .product-name-dmx {
+    font-size: 0.95em; /* Slightly smaller on smaller screens */
+  }
+  .current-price-dmx {
+    font-size: 1.1em;
+  }
+  .product-actions-dmx button {
+    font-size: 0.9em;
+    padding: 8px;
+  }
+}

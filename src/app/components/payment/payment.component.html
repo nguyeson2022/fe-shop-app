@@ -1,0 +1,71 @@
+<!-- src/app/components/payment/payment.component.html -->
+<div class="payment-container">
+  <h2>Thanh toán với PayOS</h2>
+  
+  <form (ngSubmit)="createPayment()" class="payment-form" *ngIf="!paymentVisible">
+    <div class="form-group">
+      <label for="amount">Số tiền:</label>
+      <input 
+        type="number" 
+        id="amount" 
+        [(ngModel)]="paymentForm.amount" 
+        name="amount"
+        (change)="updateAmount()"
+        min="1000"
+        required>
+      <small>Tối thiểu 1.000 VND</small>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Mô tả:</label>
+      <input 
+        type="text" 
+        id="description" 
+        [(ngModel)]="paymentForm.description" 
+        name="description"
+        required>
+    </div>
+
+    <div class="form-group">
+      <label for="customerName">Tên khách hàng:</label>
+      <input 
+        type="text" 
+        id="customerName" 
+        [(ngModel)]="paymentForm.customerName" 
+        name="customerName">
+    </div>
+
+    <div class="form-group">
+      <label for="customerEmail">Email:</label>
+      <input 
+        type="email" 
+        id="customerEmail" 
+        [(ngModel)]="paymentForm.customerEmail" 
+        name="customerEmail">
+    </div>
+
+    <div class="payment-summary">
+      <h3>Thông tin thanh toán</h3>
+      <p><strong>Sản phẩm:</strong> {{ paymentForm.items[0].name }}</p>
+      <p><strong>Số lượng:</strong> {{ paymentForm.items[0].quantity }}</p>
+      <p><strong>Tổng tiền:</strong> {{ paymentForm.amount | currency:'VND':'symbol':'1.0-0' }}</p>
+    </div>
+
+    <button 
+      type="submit" 
+      [disabled]="loading"
+      class="pay-button">
+      {{ loading ? 'Đang xử lý...' : 'Thanh toán ngay' }}
+    </button>
+  </form>
+
+  <!-- Container hiển thị QR PayOS -->
+  <div id="payos-container" style="display: none;"></div>
+  
+  <!-- Nút quay lại form khi đang thanh toán -->
+  <div *ngIf="paymentVisible" class="back-to-form">
+    <button (click)="hidePayment()" class="btn btn-secondary">
+      ← Quay lại form thanh toán
+    </button>
+  </div>
+</div>

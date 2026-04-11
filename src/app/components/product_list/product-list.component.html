@@ -1,0 +1,201 @@
+<app-header></app-header>
+
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <!-- ASIDE -->
+      <div id="aside" class="col-md-3">
+        <!-- aside Widget -->
+        <div class="aside">
+          <h3 class="aside-title">Danh mục thiết bị</h3>
+          <!-- <div class="checkbox-filter" *ngFor="let category of categories">
+            <div class="input-checkbox">
+              <label (change)="onCategoryChange()" for="category-1">
+                <span>{{category.name}}</span>              
+              </label>
+            </div>  
+          </div> -->
+          <div class="checkbox-filter" *ngFor="let category of categories">
+            <div class="input-checkbox">
+              <!-- <input type="checkbox" id="category-{{category.id}}" (change)="onCategoryChangeId(category.id)"> -->
+              <label for="category-{{category.id}}" (click)="onCategoryChangeId(category.id)">
+                <span></span>              
+                {{category.name}}
+              </label>
+            </div>  
+          </div>
+          
+        </div>
+        <!-- /aside Widget -->
+        
+        <!-- aside Widget -->
+        <div class="aside">
+          <h3 class="aside-title">Sản phẩm mới nhất</h3>
+          <div class="product-widget" *ngFor="let product of newestProducts">
+            <div class="product-img">
+              <img src="{{product.url}}" alt="">
+            </div>
+            <div class="product-body">
+              <p class="product-category">{{product.category_name || 'Khác'}}</p>
+              <h3 class="product-name"><a (click)="onProductClick(product.id)" >{{product.name}}</a></h3>
+              <h4 class="product-price">{{product.price | number:'1.0-0' }}</h4>
+            </div>
+          </div>
+
+          </div>
+        <!-- /aside Widget -->
+      </div>
+      <!-- /ASIDE -->
+
+      <!-- STORE -->
+      <div id="store" class="col-md-9">
+        <!-- store top filter -->
+        <div class="store-filter clearfix">
+          <div class="store-sort">
+            <label>
+              Sắp xếp:
+              <select [(ngModel)]="selectedCategoryId" style="font-size: 14px;" (change)="onCategoryChange()" class="input-select">
+                <option [value]="0">Tất cả</option>
+                <option *ngFor="let category of categories" [value]="+category.id">{{ category.name }}</option>
+              </select>
+            </label>
+          </div>
+          <ul class="store-grid">
+            <li class="active"><i class="fa fa-th"></i></li>
+          </ul>
+        </div>
+        <!-- /store top filter -->
+
+        <!-- store products -->
+        <div class="row">
+          <!-- product -->
+
+
+          <!-- product -->
+          <div class="col-md-4 col-xs-6" *ngFor="let product of products">
+            <!-- New Product Card Structure (Dien May Xanh inspired) -->
+            <div class="product-card-dmx">
+              <!-- Product Image Area -->
+              <div class="product-image-dmx">
+                <a (click)="onProductClick(product.id)">
+                  <img [src]="product.url" [alt]="product.name" class="img-responsive">
+                </a>
+                <!-- Placeholder for discount labels like "Giá sốc" or percentage -->
+                <!-- <div class="product-labels-dmx">
+                  <span class="label-discount-dmx">Giá sốc</span>
+                </div> -->
+              </div>
+
+              <!-- Product Info Area -->
+              <div class="product-info-dmx">
+                <h3 class="product-name-dmx"><a (click)="onProductClick(product.id)">{{product.name}}</a></h3>
+
+                <div class="product-price-dmx">
+                  <span class="current-price-dmx">{{product.price | number:'1.0-0'}}₫</span>
+                  <!-- Placeholder for old price & discount percentage - requires product.old_price -->
+                  <!-- <span class="old-price-dmx">1.290.000₫</span> -->
+                  <!-- <span class="discount-percentage-dmx">-20%</span> -->
+                </div>
+
+                <p class="product-category-dmx">Loại: {{getCategoryName(product.category_id)}}</p>
+                <p class="product-brand-dmx" *ngIf="product.brand">Thương hiệu: {{product.brand}}</p>
+                
+                <!-- Stock Information -->
+                <div class="stock-info-dmx" style="margin-top: 5px; font-size: 12px; text-align: left; padding-left: 10px;">
+                  <ng-container [ngSwitch]="true">
+                    <span *ngSwitchCase="product && product.stock != null && product.stock > 5" style="color: green; font-weight: bold;">Còn hàng ({{product?.stock}})</span>
+                    <span *ngSwitchCase="product && product.stock != null && product.stock > 0 && product.stock <= 5" style="color: orange; font-weight: bold;">Sắp hết hàng (Chỉ còn {{product?.stock}})</span>
+                    <span *ngSwitchCase="product && product.stock != null && product.stock === 0" style="color: red; font-weight: bold;">Hết hàng</span>
+                    <span *ngSwitchDefault style="color: grey; font-weight: bold;">Tạm hết hàng</span>
+                  </ng-container>
+                </div>
+
+              </div>
+
+              <!-- Product Actions Area -->
+              <div class="product-actions-dmx">
+                <button class="btn-buy-now-dmx" (click)="buyNow(product)" [disabled]="!product || product.stock == null || product.stock <= 0">Mua ngay</button>
+                <button class="btn-add-to-cart-dmx" (click)="addToCart(product)" [disabled]="!product || product.stock == null || product.stock <= 0">
+                  <i class="fa fa-shopping-cart"></i> Thêm vào giỏ
+                </button>
+                 <button class="btn-compare-dmx" *ngIf="product.specifications">
+                  <i class="fa fa-exchange"></i> So sánh
+                </button>
+              </div>
+            </div>
+            <!-- /New Product Card Structure -->
+          </div>
+          <!-- /product -->
+
+          <div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>
+
+
+        </div>
+        <!-- /store products -->
+
+        <!-- store bottom filter -->
+        <div class="store-bottom-filter" *ngIf="totalPages > 1">
+          <div class="pagination-container">
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                <!-- First Page -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="onPageChange(1)" aria-label="First">
+                    <span aria-hidden="true">««</span>
+                  </a>
+                </li>
+                
+                <!-- Previous Page -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)" aria-label="Previous">
+                    <span aria-hidden="true">«</span>
+                  </a>
+                </li>
+                
+                <!-- Page Numbers -->
+                <ng-container *ngFor="let page of visiblePages; let i = index">
+                  <ng-container *ngIf="page === -1; else pageNumber">
+                    <li class="page-item disabled">
+                      <span class="page-link">...</span>
+                    </li>
+                  </ng-container>
+                  <ng-template #pageNumber>
+                    <li class="page-item" [class.active]="page === currentPage">
+                      <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+                    </li>
+                  </ng-template>
+                </ng-container>
+                
+                <!-- Next Page -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="currentPage < totalPages && onPageChange(currentPage + 1)" aria-label="Next">
+                    <span aria-hidden="true">»</span>
+                  </a>
+                </li>
+                
+                <!-- Last Page -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="onPageChange(totalPages)" aria-label="Last">
+                    <span aria-hidden="true">»»</span>
+                  </a>
+                </li>
+              </ul>
+              <div class="pagination-info" *ngIf="totalPages > 0">
+                Trang {{currentPage}} / {{totalPages}}
+              </div>
+            </nav>
+          </div>
+        </div>
+        <!-- /store bottom filter -->
+      </div>
+      <!-- /STORE -->
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /SECTION -->
+<app-contact></app-contact>
+<app-footer></app-footer>

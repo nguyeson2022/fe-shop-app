@@ -1,0 +1,127 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xl-12">
+      <h2>Sản phẩm đã đặt</h2>
+
+      <div class="order-container" *ngFor="let order of orders">
+        <div class="order-card">
+          <div class="order-header">
+            <div>
+              <h3 class="order-title">Đơn hàng #{{order.id}}</h3>
+              <div class="order-date" *ngIf="order.order_date">Ngày đặt: {{order.order_date}}</div>
+            </div>
+            <div class="order-status">
+              <span [ngClass]="{
+                'status-pending': order.status === 'PENDING',
+                'status-processing': order.status === 'PROCESSING',
+                'status-shipped': order.status === 'SHIPPED',
+                'status-delivered': order.status === 'DELIVERED',
+                'status-completed': order.status === 'COMPLETED',
+                'status-cancelled': order.status === 'CANCELLED',
+                'status-failed': order.status === 'FAILED',
+                'status-paid': order.status === 'PAID'
+              }" class="status-badge">
+                {{ getStatusText(order.status) }}
+              </span>
+            </div>
+          </div>
+          
+          <div class="order-content">
+            <div class="order-products">
+              <div class="products-list">
+                <div class="product-item" *ngFor="let item of order.order_details">
+                  <div class="product-image">
+                    <img [src]="getProductImageUrl(item.product?.productImages)" [alt]="item.product?.name">
+                  </div>
+                  <div class="product-details">
+                    <h4 class="product-name">{{item.product?.name}}</h4>
+                    <div class="product-price">
+                      {{item.product?.price | number:'1.0-0'}} VNĐ x {{item.numberOfProducts}}
+                    </div>
+                    <div class="product-total">
+                      {{ item.total_money | number:'1.0-0' }} VNĐ
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+
+            </div>
+            
+            <div class="order-recipient">
+              <div class="recipient-card">
+                <h4 class="recipient-title">Thông tin người nhận</h4>
+                <div class="recipient-info">
+                  <div class="info-row">
+                    <span class="info-label">Họ tên:</span>
+                    <span class="info-value">{{order.fullname || 'Chưa cập nhật'}}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Số điện thoại:</span>
+                    <span class="info-value">{{order.phone_number || 'Chưa cập nhật'}}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">{{order.email || 'Chưa cập nhật'}}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Địa chỉ:</span>
+                    <span class="info-value">{{order.address || 'Chưa cập nhật'}}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Ghi chú:</span>
+                    <span class="info-value">{{order.note || 'Không có ghi chú'}}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Phương thức vận chuyển:</span>
+                    <span class="info-value">{{order.shipping_method || 'Chưa cập nhật'}}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Phương thức thanh toán:</span>
+                    <span class="info-value">{{order.payment_method || 'Chưa cập nhật'}}</span>
+                  </div>
+                  
+                  <!-- Thêm phần tổng thanh toán vào đây -->
+                  <div class="order-summary">
+                    <div class="summary-row">
+                      <span>Tổng tiền hàng:</span>
+                      <span>{{ order.total_money | number:'1.0-0' }} VNĐ</span>
+                    </div>
+                    <div class="summary-row total">
+                      <span>Tổng thanh toán:</span>
+                      <span class="total-amount">{{ order.total_money | number:'1.0-0' }} VNĐ</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+      <div class="row my-4">
+        <div class="col-sm-6">
+          <a href="ecommerce-products.html" class="btn btn-link text-muted">
+            <i class="mdi mdi-arrow-left me-1"></i></a>
+        </div>
+        <div class="col-sm-6">
+          <div class="text-sm-end mt-2 mt-sm-0">
+            <a (click)="goToHomePage()" class="btn btn-success">
+              <i class="mdi mdi-cart-outline me-1"></i> Tiếp tục mua hàng </a>
+          </div>
+        </div>
+      </div>
+
+
+
+  </div>
+</div>
+</div>
+<app-contact></app-contact>
+<app-footer></app-footer>

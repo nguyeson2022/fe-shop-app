@@ -1,0 +1,30 @@
+
+<div class="col-md-6">
+ 
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Cập nhật thể loại</h4>
+
+
+        <form class="row g-3" (ngSubmit)="updateCategory()">
+          <div class="col-md-12">
+            <label for="name" class="form-label">Tên thể loại<span style="color: red;"> (*)</span></label>
+            <input type="text" id="name"
+                   [(ngModel)]="category.name"
+                   name="name" class="form-control" required>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <div>
+              <button type="submit" class="btn btn-primary" (click)="navigateToUpdateImage()">Cập nhật ảnh</button>
+            </div>
+            <div  >
+              <button style="margin-right: 10px;" type="submit" class="btn btn-primary">Sửa</button>
+              <button type="reset" class="btn btn-secondary" routerLink="/admin/categories">Quay lại</button>
+            </div>
+          </div>
+          
+        </form>
+
+      </div>
+    </div>
+</div>

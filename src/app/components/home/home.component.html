@@ -1,0 +1,300 @@
+<!-- Header -->
+<app-header></app-header>
+<app-hero></app-hero>
+
+<!-- Hero Section (Banner) -->
+<!-- <section id="hero">
+  <div class="hero-container">
+    <div id="carouselExampleCaptions" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="./assets/images/electronics-banner1.png" class="d-block w-100" alt="Gia dụng Minh Tiến">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Khuyến mãi đặc biệt</h5>
+            <p style="font-size: 35px;">Giảm giá lên đến 50% cho tủ lạnh và quạt điện!</p>
+            <a routerLink="/product-list" class="btn-get-started">Xem ngay</a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="./assets/images/ele3.png" class="d-block w-100" alt="Gia dụng Minh Tiến">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Sản phẩm mới</h5>
+            <p style="font-size: 35px;">Điều hòa nhập khẩu chính hãng</p>
+            <a routerLink="/product-list" class="btn-get-started">Xem ngay</a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="./assets/images/electronics-banner1.png" class="d-block w-100" alt="Gia dụng Minh Tiến">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Ưu đãi hôm nay</h5>
+            <p style="font-size: 35px;">Mua quạt điện giá sốc</p>
+            <a routerLink="/product-list" class="btn-get-started">Xem ngay</a>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</section> -->
+
+<!-- Hero section -->
+<!-- <div class="hero-wrap">
+  <section id="home" class="container hero">
+      <div class="hero-img">
+        <img src="../../../assets/images/hero.png" alt="Appliances" />
+      </div>
+
+    <div class="hero-copy">
+      <h1>CHẤT LƯỢNG <span>ĐI ĐẦU</span></h1>
+      <p>
+        Chúng tôi mang đến cho bạn giải pháp mua sắm đồ gia dụng hiện đại, 
+        từ những sản phẩm thiết yếu cho căn bếp đến các thiết bị tiện ích cho cả gia đình. 
+        Với chất lượng đảm bảo, giá cả hợp lý và dịch vụ tận tâm, chúng tôi giúp bạn biến ngôi nhà trở nên tiện nghi 
+        và thoải mái hơn mỗi ngày.
+      </p>
+      <a class="btn" href="#contact">Liên hệ</a>
+    </div>
+  </section>
+</div> -->
+
+<!-- Product Categories Dropdown -->
+<!-- <section id="categories" class="categories py-3 bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-3">
+        <h3 class="mb-0">Danh mục sản phẩm</h3>
+      </div>
+      <div class="col-md-9">
+        <div class="dropdown d-inline-block me-2">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Chọn danh mục
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <li><a class="dropdown-item" (click)="onCategoryClick(0)">Tất cả sản phẩm</a></li>
+            <li *ngFor="let category of categories">
+              <a class="dropdown-item" (click)="onCategoryClick(category.id)">
+                {{ category.name }}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" (click)="onClickAll()">
+          <i class="fas fa-list me-1"></i> Xem tất cả
+        </button>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Products by Category Section -->
+<section id="products-by-category" class="py-5">
+  <div class="container">
+    <!-- Loading indicator -->
+    <div *ngIf="isLoading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Đang tải sản phẩm...</p>
+    </div>
+
+    <!-- Products by Category -->
+    <div *ngIf="!isLoading && productsByCategory.length > 0">
+      <div *ngFor="let categoryData of productsByCategory" class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0">{{ categoryData.category.name }}</h2>
+          <a
+            [routerLink]="['/product-list']"
+            [queryParams]="{ category: categoryData.category.id }"
+            class="btn btn-outline-primary see-all"
+          >
+            Xem tất cả <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+
+        <div class="row g-4">
+          <div
+            class="col-6 col-md-4 col-lg-3"
+            *ngFor="let product of categoryData.products"
+          >
+            <div
+              class="card h-100 product-card"
+              (click)="onProductClick(product.id)"
+            >
+              <div class="position-relative">
+                <img
+                  [src]="product.url"
+                  class="card-img-top"
+                  [alt]="product.name"
+                  style="height: 200px; object-fit: cover"
+                />
+                <div class="product-actions">
+                  <button
+                    class="btn btn-sm btn-light rounded-circle me-2"
+                    (click)="$event.stopPropagation(); addToWishlist(product)"
+                  >
+                    <i class="far fa-heart"></i>
+                  </button>
+                  <button
+                    class="btn btn-sm btn-primary rounded-circle"
+                    (click)="$event.stopPropagation(); addToCart(product)"
+                  >
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <h5
+                  class="card-title mb-1 text-truncate"
+                  [title]="product.name"
+                >
+                  {{ product.name }}
+                </h5>
+                <p class="card-text text-danger fw-bold mb-2">
+                  {{ product.price | number : "1.0-0" }} đ
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="ratings">
+                    <i class="fas fa-star text-warning"></i>
+                    <span class="ms-1">4.5</span>
+                    <span class="text-muted">({{product.stock}})</span>
+                  </div>
+                  <button
+                    class="btn btn-sm btn-outline-primary"
+                    (click)="
+                      $event.stopPropagation(); onProductClick(product.id)
+                    "
+                  >
+                    <i class="fas fa-eye me-1"></i> Xem
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="numberOfProducts < categories.length">
+      <div class="text-center" (click)="getMoreProducts()">
+        Xem thêm sản phẩm
+        <i class="bi bi-chevron-down"></i>
+      </div>
+    </ng-container>
+
+    <!-- No products message -->
+    <div
+      *ngIf="!isLoading && productsByCategory.length === 0"
+      class="text-center py-5"
+    >
+      <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
+      <h4>Không có sản phẩm nào</h4>
+      <p class="text-muted">Chúng tôi sẽ sớm cập nhật thêm sản phẩm mới</p>
+    </div>
+  </div>
+</section>
+
+<!-- Promotions Section -->
+<section id="promotions" class="promotions">
+  <div class="container-fluid mt-5 py-5 bg-light">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>Tin tức</h2>
+        <p class="separator">Cập nhật ưu đãi mới nhất</p>
+      </div>
+      <div class="row" data-aos-delay="100">
+        <div class="col-md-6 col-lg-4" *ngFor="let article of articles">
+          <div
+            class="block-promotion text-left"
+            (click)="onArticleClick(article.id)"
+          >
+            <a><img [src]="article.url" alt="img" style="height: 357px" /></a>
+            <div class="content-promotion">
+              <h4>
+                <a style="font-weight: 600">{{ article.title }}</a>
+              </h4>
+              <span>{{ article.created_at }}</span>
+              <a (click)="onArticleClick(article.id)" class="float-end readmore"
+                >Xem chi tiết</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item" *ngIf="currentPage > 1">
+            <a class="page-link" (click)="onPageChangeArticle(1)">First</a>
+          </li>
+          <li class="page-item" *ngIf="currentPage > 1">
+            <a class="page-link" (click)="onPageChangeArticle(currentPage - 1)"
+              >Previous</a
+            >
+          </li>
+          <ng-container *ngFor="let page of visiblePages">
+            <li class="page-item" [ngClass]="{ active: page === currentPage }">
+              <a class="page-link" (click)="onPageChangeArticle(page)">{{
+                page
+              }}</a>
+            </li>
+          </ng-container>
+          <li class="page-item" *ngIf="currentPage < totalPages">
+            <a class="page-link" (click)="onPageChangeArticle(currentPage + 1)"
+              >Next</a
+            >
+          </li>
+          <li class="page-item" *ngIf="currentPage < totalPages">
+            <a class="page-link" (click)="onPageChangeArticle(totalPages)"
+              >Last</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+  <div class="container mt-4">
+    <div class="section-title text-center">
+      <h2>Liên hệ</h2>
+    </div>
+  </div>
+  <div class="info-wrap mt-5">
+    <div class="row">
+      <div class="col-lg-4 info">
+        <i class="fa-solid fa-location-dot"></i>
+        <h4>Địa chỉ:</h4>
+        <p>123 Đường Minh Khai, Hà Nội</p>
+      </div>
+      <div class="col-lg-4 info mt-4 mt-lg-0">
+        <i class="fa-regular fa-envelope"></i>
+        <h4>Email:</h4>
+        <p>tienlm&#64;gmail.com</p>
+      </div>
+      <div class="col-lg-4 info mt-4 mt-lg-0">
+        <i class="fa-solid fa-phone-volume"></i>
+        <h4>Hotline:</h4>
+        <p>+84 59919290</p>
+      </div>
+    </div>
+  </div>
+  <app-contact></app-contact>
+</section>
+
+<!-- Footer -->
+<app-footer></app-footer>

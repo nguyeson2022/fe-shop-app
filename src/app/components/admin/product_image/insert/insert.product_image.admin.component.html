@@ -1,0 +1,28 @@
+<div class="col-md-6">
+  <form (ngSubmit)="insertImages()" enctype="multipart/form-data">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Thêm hình ảnh</h4>
+
+        <!-- Multi Columns Form -->
+        <div class="row g-3">
+          <div class="col-md-12">
+            <label for="name" class="form-label">Tên sản phẩm<span style="color: red;"> (*)</span></label>
+            <select id="product" [(ngModel)]="insertProductImageDTO.product_id" name="product" class="form-control" required>
+              <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+            </select>
+          </div>
+          <div class="col-md-12">
+            <label for="images" class="form-label">Ảnh (tối đa 3)</label>
+            <input type="file" id="images" name="images" multiple (change)="onFileChange($event)" class="form-control" accept="image/*">
+          </div>
+          <div class="" style="text-align: right;">
+            <button style="margin-right: 10px;" type="submit" class="btn btn-primary">Thêm mới</button>
+            <button type="reset" class="btn btn-secondary" routerLink="/admin/product_images">Quay lại</button>
+          </div>
+        </div><!-- End Multi Columns Form -->
+
+      </div>
+    </div>
+  </form>
+</div>

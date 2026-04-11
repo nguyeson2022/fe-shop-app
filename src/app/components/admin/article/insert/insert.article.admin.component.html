@@ -1,0 +1,40 @@
+<div class="container">
+    <form (ngSubmit)="insertNewArticle()" enctype="multipart/form-data">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Thêm tin tức</h4>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">Tiêu đề<span style="color: red;"> (*)</span></label>
+                        <input type="text" id="title" [(ngModel)]="insertArticle.title" name="title"
+                            class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="price" class="form-label">Tác giả<span style="color: red;"> (*)</span></label>
+                        <input type="text" id="arthor" [(ngModel)]="insertArticle.author" name="arthor"
+                            class="form-control col-md-3" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="description" class="form-label">Nội dung<span style="color: red;"> (*)</span></label>
+                        <textarea id="description" [(ngModel)]="insertArticle.description" name="description"
+                            class="form-control" required></textarea>
+                    </div>
+
+
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="text-align: left;">
+                            <button style="margin-right: 10px; " (click)="resetForm()" type="submit"
+                                class="btn btn-primary">Reload</button>
+                        </div>
+                        <div style="text-align: right;">
+                            <button style="margin-right: 10px;" type="submit" class="btn btn-primary">Thêm mới</button>
+                            <button type="reset" class="btn btn-secondary" routerLink="/admin/articles">Quay lại</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

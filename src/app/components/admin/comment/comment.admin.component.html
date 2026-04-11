@@ -1,0 +1,93 @@
+
+<div class="pagetitle">
+    <h1>Đánh giá</h1>
+    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Trang quản lý</a></li>
+          <li class="breadcrumb-item">Quản lý đánh giá</li>
+          <li class="breadcrumb-item active">Danh sách đánh giá</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div style="display: flex;  justify-content: space-between;">
+    <div class="form-group col-lg-8" style=" display: flex; margin-bottom: 10px; justify-items: center;">
+      <label style="width: 100px; align-self: center;" for="productSelect">Đánh giá:</label>
+      <select class="form-select" id="productSelect" (change)="onProductSelect($event)">
+        <option value="" disabled selected>Chọn đánh giá</option>
+        <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+      </select>
+    </div>
+    <div>
+      <button type="submit" (click)="reloadPage()" class="btn btn-primary">Reload</button>
+    </div>
+  </div>
+    
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12 table_styles">
+  
+        <div class="card ">
+          <div class="card-body">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Người đánh giá</th>
+                <th scope="col">Sản phẩm</th>
+                <th scope="col">Đánh giá</th>
+                <th scope="col">Hành động</th>
+              </tr>
+              </thead>
+              <tbody >
+                  <tr *ngFor="let comment of comments; let i = index">
+                    <td>
+                        {{(currentPage - 1) * itemsPerPage + i + 1}}</td>
+                    <td>{{ comment.user }}</td>
+                    <td>{{ comment.product }}</td>
+                    <td>{{ comment.content }}</td>
+                    <td>
+                      <div style="display: flex; gap: 10px;">
+
+                          <button  class="btn btn-warning" (click)="updateComment(comment.id)" ><i class="fa-solid fa-pen-to-square"></i></button>
+                          <button class="btn btn-danger" (click)="deleteComment(comment)" ><i class="fa-solid fa-trash"></i></button>                 
+                        
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+            <!-- End Default Table Example -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="d-flex justify-content-center mt-2">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item" *ngIf="currentPage > 1">
+          <a class="page-link"  (click)="onPageChange(1)">First</a>
+        </li>
+        <li class="page-item" *ngIf="currentPage > 1">
+          <a class="page-link"  (click)="onPageChange(currentPage - 1)">Previous</a>
+        </li>
+        <ng-container *ngFor="let page of visiblePages">
+          <li class="page-item" [ngClass]="{'active': page === currentPage}">
+            <a class="page-link"  (click)="onPageChange(page)">{{ page }}</a>
+          </li>
+        </ng-container>
+        <li class="page-item" *ngIf="currentPage < totalPages">
+          <a class="page-link"  (click)="onPageChange(currentPage + 1)">Next</a>
+        </li>
+        <li class="page-item" *ngIf="currentPage < totalPages">
+          <a class="page-link"  (click)="onPageChange(totalPages)">Last</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  
+  
+  

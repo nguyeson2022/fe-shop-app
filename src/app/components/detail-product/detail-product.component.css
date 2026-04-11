@@ -1,0 +1,58 @@
+@import '../../styles/userStyle.css';
+@import '../../styles/nouislider.min.css';
+@import '../../styles/slick.css';
+@import '../../styles/slick-theme.css';
+
+.group_table {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  text-align: center;
+}
+
+::ng-deep mat-tab-group {
+  margin-bottom: 48px;
+  width: 80%;
+}
+
+/* ::ng-deep mat-tab-header{
+
+} */
+
+
+::ng-deep mat-tab-labels {
+  justify-content: center;
+}
+
+::ng-deep mat-tab-body-wrapper {
+  display: flex;
+  justify-content: center;
+}
+::ng-deep .mat-mdc-tab-body-wrapper{
+  margin-top: 20px !important;
+}
+::ng-deep .mat-mdc-tab-labels{
+  font-size: 25px;
+  font-weight: 500;
+  color: #d10024;
+}
+
+::ng-deep .mat-mdc-tab-label-container {
+  border-bottom: none !important;
+}
+
+::ng-deep .mdc-tab__text-label{
+  margin-bottom: 10px;
+}
+
+::ng-deep .ng-star-inserted{
+  margin-top: 5px;
+}
+
+::ng-deep .ng-trigger{
+  color: #6f6e6e;
+}
+/* ::ng-deep mat-tab-body {
+  max-width: 800px;
+  width: 100%;
+} */

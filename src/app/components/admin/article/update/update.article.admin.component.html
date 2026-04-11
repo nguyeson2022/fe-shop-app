@@ -1,0 +1,47 @@
+<div class="container">
+
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Cập nhật tin tức</h4>
+
+
+        <form class="row g-3" (ngSubmit)="updateArticleData()">
+          <div class="col-md-6">
+            <label  for="title" class="form-label">Tiêu đề<span style="color: red;"> (*)</span></label>
+            <input type="text" id="title" [(ngModel)]="updateArticle.title" name="title"
+                            class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label for="arthor" class="form-label">Tác giả<span style="color: red;"> (*)</span></label>
+            <input type="text" id="arthor" [(ngModel)]="updateArticle.author" name="arthor"
+                            class="form-control col-md-3" required>
+          </div>
+          <div class="col-md-12">
+            <label for="description" class="form-label">Nội dung<span style="color: red;"> (*)</span></label>
+            <textarea id="description" [(ngModel)]="updateArticle.description" name="description"
+                            class="form-control" required></textarea>
+          </div>
+          <div class="col-md-6">
+            <label for="created_at" class="form-label">Ngày tạo<span style="color: red;"> (*)</span></label>
+            <input type="date" id="created_at" [(ngModel)]="updateArticle.created_at" name="created_at"
+                            class="form-control col-md-3" required>
+          </div>
+
+          
+          <div class="col-12" style="display: flex; justify-content: space-between; align-items: center;" > 
+            <div  >
+                <button type="button" class="btn btn-primary mt-2" (click)="navigateToUpdateImage()">
+                    Cập nhật ảnh</button>
+              </div>
+            <div >
+              <button style="margin-right: 10px;" type="submit" class="btn btn-primary">Sửa</button>
+              <button type="reset" class="btn btn-secondary" routerLink="/admin/articles">Quay lại</button>
+            </div>
+          </div>
+          
+        </form>
+
+      </div>
+    </div>
+  
+</div>

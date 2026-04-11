@@ -1,0 +1,45 @@
+<div class="container">
+  
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Thêm mới điều kiện mã giảm giá</h4>
+
+        <!-- Multi Columns Form -->
+        <form class="row g-3">
+          <div class="col-md-6">
+            <label  for="name" class="form-label">Chọn mã giảm giá<span style="color: red;"> (*)</span></label>
+            <select class="form-control" id="coupon" [(ngModel)]="newCouponCondition.coupon.id" name="coupon">
+              <option value="" selected disabled >Chọn mã giảm giá</option>
+              <option *ngFor="let coupon of coupons"  [ngValue]="coupon.id">{{ coupon.code }}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="value" class="form-label">Giá trị<span style="color: red;"> (*)</span></label>
+            <input type="text" class="form-control" id="value" [(ngModel)]="newCouponCondition.value" name="value" placeholder="Nhập giá trị">
+          </div>
+          <div class="col-md-6">
+            <label for="discountAmount" class="form-label">Số tiền giảm giá<span style="color: red;"> (*)</span></label>
+            <input type="text" class="form-control" id="discountAmount" [(ngModel)]="newCouponCondition.discountAmount" name="discountAmount" placeholder="Nhập số tiền giảm giá">
+          </div>
+          
+          <div class="col-md-6">
+            <label for="operator" class="form-label">Toán tử<span style="color: red;"> (*)</span></label>
+            <input type="text" class="form-control" id="operator" [(ngModel)]="newCouponCondition.operator" name="operator" placeholder="Nhập toán tử">
+          </div>
+          <div class="col-md-12">
+            <label for="attribute" class="form-label">Nội dung mã<span style="color: red;"> (*)</span></label>
+            <input type="text" class="form-control" id="attribute" [(ngModel)]="newCouponCondition.attribute" name="attribute" placeholder="Nhập thuộc tính">
+          </div>
+          
+          
+
+          <div class="" style="text-align: right;">
+            <button style="margin-right: 10px;" type="submit" (click)="addCouponCondition()" class="btn btn-primary">Thêm mới</button>
+            <button type="reset" class="btn btn-secondary" routerLink="/admin/coupons">Quay lại</button>
+          </div>
+        </form><!-- End Multi Columns Form -->
+
+      </div>
+    </div>
+ 
+</div>

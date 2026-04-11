@@ -1,0 +1,99 @@
+
+<div class="pagetitle">
+    <h1>Mã giảm giá</h1>
+    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Trang quản lý</a></li>
+          <li class="breadcrumb-item">Quản lý mã giảm giá</li>
+          <li class="breadcrumb-item active">Danh sách mã giảm giá</li>
+        </ol>
+      </nav>
+      <nav class="" style="display: flex;">
+        <div style="margin-right: 5px;" >
+          <button class="btn btn-primary" (click)="addCoupon()" >Thêm mới mã</button>
+        </div>
+        <div >
+          <button class="btn btn-success" (click)="insertCoupon()" >Thêm mới</button>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+    
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12 table_styles">
+  
+        <div class="card ">
+          <div class="card-body">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Mã giảm giá</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Cách thức giảm giá</th>
+                <th scope="col">Giảm giá</th>
+                <th scope="col">Thao tác</th>
+                <th scope="col">Giá trị</th>
+                <th scope="col">Hành động</th>
+              </tr>
+              </thead>
+              <tbody >
+                  <tr *ngFor="let coupon of coupons; let i = index">
+                    <td>
+                        {{(currentPage - 1) * itemsPerPage + i + 1}}</td>
+                    <td>{{ coupon.couponCode }}</td>
+                    <td>{{ coupon.couponActive }}</td>
+                    <td>
+                      {{ coupon.attribute === 'amount' ? 'Theo giá trị' : (coupon.attribute === 'date' ? 'Theo ngày' : coupon.attribute) }}
+                    </td>
+                    <td>{{ coupon.discountAmount }}%</td>
+                    <td>{{ coupon.operator }}</td>
+                    <td>{{ coupon.value }}</td>
+                
+                    <td>
+                      <div style="display: flex; gap: 10px;">
+
+                          <button  class="btn btn-warning" (click)="updateCoupon(coupon.id)" ><i class="fa-solid fa-pen-to-square"></i></button>
+                          <button class="btn btn-danger"  (click)="deleteCoupon(coupon)"><i class="fa-solid fa-trash"></i></button>                 
+                        
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+            <!-- End Default Table Example -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="d-flex justify-content-center mt-2">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item" *ngIf="currentPage > 1">
+          <a class="page-link"  (click)="onPageChange(1)">First</a>
+        </li>
+        <li class="page-item" *ngIf="currentPage > 1">
+          <a class="page-link"  (click)="onPageChange(currentPage - 1)">Previous</a>
+        </li>
+        <ng-container *ngFor="let page of visiblePages">
+          <li class="page-item" [ngClass]="{'active': page === currentPage}">
+            <a class="page-link"  (click)="onPageChange(page)">{{ page }}</a>
+          </li>
+        </ng-container>
+        <li class="page-item" *ngIf="currentPage < totalPages">
+          <a class="page-link"  (click)="onPageChange(currentPage + 1)">Next</a>
+        </li>
+        <li class="page-item" *ngIf="currentPage < totalPages">
+          <a class="page-link"  (click)="onPageChange(totalPages)">Last</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  
+  
+  

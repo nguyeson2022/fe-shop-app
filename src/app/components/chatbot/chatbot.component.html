@@ -1,0 +1,134 @@
+<!-- Chatbot Toggle Button -->
+<div class="chatbot-toggle" 
+     [class.chatbot-open]="isOpen" 
+     (click)="toggleChat()"
+     *ngIf="!isOpen">
+  <i class="fas fa-comments"></i>
+  <div class="chatbot-badge">AI</div>
+</div>
+
+<!-- Chatbot Container -->
+<div class="chatbot-container" 
+     [class.chatbot-open]="isOpen"
+     [class.chatbot-minimized]="isMinimized">
+  
+  <!-- Chatbot Header -->
+  <div class="chatbot-header">
+    <div class="chatbot-header-info">
+      <div class="chatbot-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="chatbot-title">
+        <h4>Trợ lý AI</h4>
+        <span class="chatbot-status">
+          <i class="fas fa-circle online"></i>
+          Đang hoạt động
+        </span>
+      </div>
+    </div>
+    
+    <div class="chatbot-controls">
+      <button class="chatbot-btn" 
+              (click)="clearChat()"
+              title="Làm mới cuộc trò chuyện">
+        <i class="fas fa-redo"></i>
+      </button>
+      <button class="chatbot-btn" 
+              (click)="minimizeChat()"
+              title="Thu nhỏ">
+        <i class="fas fa-minus"></i>
+      </button>
+      <button class="chatbot-btn" 
+              (click)="closeChat()"
+              title="Đóng">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Chatbot Body -->
+  <div class="chatbot-body" *ngIf="!isMinimized">
+    
+    <!-- Messages Container -->
+    <div class="chatbot-messages" #messagesContainer>
+      <div class="message" 
+           *ngFor="let message of messages; let i = index"
+           [class.user-message]="message.isUser"
+           [class.bot-message]="!message.isUser"
+           [class.loading-message]="message.isLoading">
+        
+        <!-- Bot Avatar -->
+        <div class="message-avatar" *ngIf="!message.isUser">
+          <i class="fas fa-robot"></i>
+        </div>
+        
+        <!-- Message Content -->
+        <div class="message-content">
+          <div class="message-bubble">
+            <div class="message-text" 
+                 [innerHTML]="message.content | safeHtml">
+            </div>
+            
+            <!-- Loading Animation -->
+            <div class="typing-indicator" *ngIf="message.isLoading">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+          
+          <div class="message-time">
+            {{ formatTime(message.timestamp) }}
+          </div>
+        </div>
+        
+        <!-- User Avatar -->
+        <div class="message-avatar user-avatar" *ngIf="message.isUser">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+      
+      <!-- Quick Suggestions -->
+      <div class="quick-suggestions" *ngIf="messages.length <= welcomeMessages.length && !isLoading">
+        <div class="suggestions-title">Gợi ý câu hỏi:</div>
+        <div class="suggestion-buttons">
+          <button class="suggestion-btn" 
+                  *ngFor="let suggestion of getQuickSuggestions()"
+                  (click)="sendQuickMessage(suggestion)">
+            {{ suggestion }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="chatbot-input-area">
+      <div class="input-container">
+        <textarea #messageInput
+                  class="message-input"
+                  [(ngModel)]="currentMessage"
+                  (keydown)="onKeyPress($event)"
+                  placeholder="Nhập câu hỏi của bạn..."
+                  rows="1"
+                  [disabled]="isLoading"></textarea>
+        
+        <button class="send-button" 
+                (click)="sendMessage()"
+                [disabled]="!currentMessage.trim() || isLoading"
+                [class.loading]="isLoading">
+          <i class="fas fa-paper-plane" *ngIf="!isLoading"></i>
+          <i class="fas fa-spinner fa-spin" *ngIf="isLoading"></i>
+        </button>
+      </div>
+      
+      <div class="input-footer">
+        <small>Nhấn Enter để gửi, Shift+Enter để xuống dòng</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div class="chatbot-backdrop" 
+     *ngIf="isOpen" 
+     (click)="closeChat()"></div>

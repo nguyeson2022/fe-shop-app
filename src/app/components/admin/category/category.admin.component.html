@@ -1,0 +1,88 @@
+
+<div class="pagetitle">
+  <h1>Danh mục</h1>
+  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Trang quản lý</a></li>
+        <li class="breadcrumb-item">Quản lý danh mục</li>
+        <li class="breadcrumb-item active">Danh sách danh mục</li>
+      </ol>
+    </nav>
+    <nav>
+      <div >
+        <button class="btn btn-success" (click)="insertCategory()" >Thêm mới</button>
+      </div>
+    </nav>
+  </div>
+    
+</div><!-- End Page Title -->
+
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12 table_styles">
+
+      <div class="card ">
+        <div class="card-body">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tên danh mục</th>
+              <th scope="col">Hình ảnh</th>
+              <th scope="col">Hành động</th>
+            </tr>
+            </thead>
+            <tbody >
+                <tr *ngFor="let category of categories; let i = index">
+                  <td>
+                    {{ category.id }}</td>
+                  <td>{{ category.name }}</td>
+                  <td><img src="{{ category.url }}"
+                      class="rounded-square" alt="Thumbnail"
+                      width="100" height="100"></td>
+                  <td>
+                    <div style="display: flex; gap: 10px;">
+                      <button class="btn btn-warning" (click)="updateCategory(category.id)" ><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button class="btn btn-danger"(click)="deleteCategory(category)" ><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+          <!-- Pagination -->
+          <div class="pagination-container mt-3" *ngIf="totalPages > 0">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <!-- Previous Page Link -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" href="javascript:void(0)" (click)="onPageChange(currentPage - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                
+                <!-- Page Numbers -->
+                <li class="page-item" *ngFor="let page of visiblePages" [class.active]="page === currentPage">
+                  <a class="page-link" href="javascript:void(0)" (click)="onPageChange(page)">{{ page }}</a>
+                </li>
+                
+                <!-- Next Page Link -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" href="javascript:void(0)" (click)="onPageChange(currentPage + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <div class="text-center mt-2">
+              <small class="text-muted">Trang {{currentPage}} / {{totalPages}}</small>
+            </div>
+          </div>
+          <!-- End Pagination -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
