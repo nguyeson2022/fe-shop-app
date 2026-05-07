@@ -65,10 +65,10 @@
         <!-- Message Content -->
         <div class="message-content">
           <div class="message-bubble">
-            <div class="message-text" 
+            <div class="message-text"
                  [innerHTML]="message.content | safeHtml">
             </div>
-            
+
             <!-- Loading Animation -->
             <div class="typing-indicator" *ngIf="message.isLoading">
               <div class="dot"></div>
@@ -76,7 +76,26 @@
               <div class="dot"></div>
             </div>
           </div>
-          
+
+          <!-- Product Cards -->
+          <div class="message-products"
+               *ngIf="!message.isUser && message.products && message.products.length > 0">
+            <div class="product-card"
+                 *ngFor="let product of message.products"
+                 (click)="goToProduct(product)">
+              <div class="product-card-image">
+                <img [src]="product.displayImageUrl"
+                     [alt]="product.name"
+                     (error)="onImageError($event)">
+              </div>
+              <div class="product-card-info">
+                <div class="product-card-name">{{ product.name }}</div>
+                <div class="product-card-price">{{ product.price | number:'1.0-0' }} đ</div>
+                <button type="button" class="product-card-btn">Xem chi tiết</button>
+              </div>
+            </div>
+          </div>
+
           <div class="message-time">
             {{ formatTime(message.timestamp) }}
           </div>

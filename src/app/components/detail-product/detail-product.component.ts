@@ -101,16 +101,32 @@ export class DetailProductComponent implements OnInit {
     this.showImage(this.currentImageIndex - 1);
   }
   addToCart(): void {
-    this.isPressedAddToCart = true;
-    if (this.product) {
-      this.cartService.addToCart(this.product.id, this.quantity);
-    } else {
-      // xu ly khi product la null
+    if (!this.product) {
       console.error('Khong the them san pham vao gio hang vi product null');
+      return;
     }
+    if (this.product.stock == null || this.product.stock <= 0) {
+      this.toastr.error('Sản phẩm đã hết hàng', 'Thất bại', { timeOut: 2000 });
+      return;
+    }
+    if (this.quantity > this.product.stock) {
+      this.toastr.warning(`Chỉ còn ${this.product.stock} sản phẩm trong kho`, 'Vượt quá số lượng tồn', {
+        timeOut: 2000
+      });
+      this.quantity = this.product.stock;
+      return;
+    }
+    this.isPressedAddToCart = true;
+    this.cartService.addToCart(this.product.id, this.quantity);
   }
 
   increateQuantity(): void {
+    if (this.product && this.product.stock != null && this.quantity >= this.product.stock) {
+      this.toastr.warning(`Chỉ còn ${this.product.stock} sản phẩm trong kho`, 'Vượt quá số lượng tồn', {
+        timeOut: 2000
+      });
+      return;
+    }
     this.quantity++;
   }
   decreaseQuantity(): void {
@@ -126,11 +142,38 @@ export class DetailProductComponent implements OnInit {
     return 0;
   }
   buyNow() {
+    if (!this.product || this.product.stock == null || this.product.stock <= 0) {
+      this.toastr.error('Sản phẩm đã hết hàng', 'Thất bại', { timeOut: 2000 });
+      return;
+    }
+    if (this.quantity > this.product.stock) {
+      this.toastr.warning(`Chỉ còn ${this.product.stock} sản phẩm trong kho`, 'Vượt quá số lượng tồn', {
+        timeOut: 2000
+      });
+      this.quantity = this.product.stock;
+      return;
+    }
     if (this.isPressedAddToCart == false) {
       this.addToCart();
     }
     this.router.navigate(['/orders']);
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
+  }
+
+  onQuantityInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = parseInt(input.value, 10);
+    if (isNaN(value) || value < 1) {
+      value = 1;
+    }
+    if (this.product && this.product.stock != null && value > this.product.stock) {
+      this.toastr.warning(`Chỉ còn ${this.product.stock} sản phẩm trong kho`, 'Vượt quá số lượng tồn', {
+        timeOut: 2000
+      });
+      value = this.product.stock;
+    }
+    this.quantity = value;
+    input.value = value.toString();
   }
 
   submitReview(): void {

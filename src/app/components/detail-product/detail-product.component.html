@@ -68,7 +68,7 @@
             <div class="qty-label">
               Số lượng
               <div class="input-number">
-                <input type="number" [value]="quantity">
+                <input type="number" [value]="quantity" min="1" [max]="product?.stock || 1" (change)="onQuantityInput($event)">
                 <span class="qty-up" (click)="increateQuantity()">+</span>
                 <span class="qty-down" (click)="decreaseQuantity()">-</span>
               </div>
@@ -86,7 +86,12 @@
       <!-- /Product details -->
       <div class="group_table">
         <mat-tab-group animationDuration="2ms">
-          <mat-tab label="Mô tả">{{product?.description}}</mat-tab>
+          <mat-tab label="Mô tả">
+            <div class="tab-description">
+              <p *ngIf="product?.description">{{ product?.description }}</p>
+              <p *ngIf="!product?.description" class="no-content">Sản phẩm chưa có mô tả chi tiết.</p>
+            </div>
+          </mat-tab>
           <mat-tab label="Đánh giá">
             <div style="display: flex; justify-content: space-around;">
               <!-- Reviews -->
