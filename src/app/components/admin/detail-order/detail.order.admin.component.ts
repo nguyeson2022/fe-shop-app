@@ -24,6 +24,7 @@ import {ToastrService} from "ngx-toastr";
 
 export class DetailOrderAdminComponent implements OnInit{
   orderId:number = 0;
+  originalStatus: string = '';
   orderResponse: OrderResponse = {
     id: 0, // Hoặc bất kỳ giá trị số nào bạn muốn
     user_id: 0,
@@ -93,7 +94,8 @@ export class DetailOrderAdminComponent implements OnInit{
         }
         this.orderResponse.shipping_method = response.shipping_method;
         this.orderResponse.status = response.status;
-        
+        this.originalStatus = response.status;
+
       },
       complete: () => {
         ;
@@ -106,7 +108,7 @@ export class DetailOrderAdminComponent implements OnInit{
   }
 
   isOrderCompleted(): boolean {
-    return this.orderResponse.status === 'COMPLETED';
+    return this.originalStatus === 'COMPLETED' || this.originalStatus === 'CANCELLED';
   }
 
   saveOrder(): void {
